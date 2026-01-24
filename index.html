@@ -7,12 +7,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050505; color: #f3f4f6; overflow-x: hidden; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050505; color: #f3f4f6; }
     .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
     .text-gradient { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    #mesh-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #050505; }
+    
+    /* Ensure the canvas stays in the background but allows scrolling */
+    #mesh-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: #050505; pointer-events: none; }
 
-    /* KIMI AI ORB WITH BLINKING EYES */
+    /* ORB STYLE */
     .kimi-orb {
       width: 50px; height: 50px; border-radius: 50%;
       background: radial-gradient(circle at 30% 30%, #60a5fa, #a855f7, #3b82f6);
@@ -25,15 +27,16 @@
     @keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
     @keyframes orb-float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-12px) scale(1.02); } }
 
-    /* Action Chips */
     .chip { 
       background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3);
       padding: 6px 12px; border-radius: 20px; font-size: 11px; color: #60a5fa;
       transition: all 0.3s; cursor: pointer; white-space: nowrap;
     }
     .chip:hover { background: rgba(59, 130, 246, 0.3); transform: translateY(-2px); }
-
     .scrollbar-hide::-webkit-scrollbar { display: none; }
+    
+    .input-field { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 12px 16px; width: 100%; outline: none; transition: all 0.3s; color: white; }
+    .input-field:focus { border-color: #3b82f6; }
   </style>
 </head>
 <body>
@@ -47,7 +50,7 @@
     <a href="#contact" class="text-blue-400">Contact</a>
   </nav>
 
-  <header class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20">
+  <header class="min-h-screen flex flex-col justify-center items-center text-center px-6">
     <div class="mb-8 relative group">
       <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-40"></div>
       <img src="profile_pic_updated.jpeg" alt="Bharathraj KV" class="relative w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-2 border-white/10 shadow-2xl">
@@ -56,46 +59,78 @@
     <p class="mt-4 text-2xl text-blue-400 font-semibold tracking-wide uppercase">Python Developer</p>
   </header>
 
+  <section id="projects" class="py-24 px-6 relative z-10">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold mb-16 text-center">Featured Projects</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-3xl border border-white/5 hover:border-blue-500/50 transition duration-500">
+          <div class="text-blue-400 mb-4 font-bold text-xs uppercase">AI & Vision</div>
+          <h3 class="text-xl font-bold mb-2">VisionGuard AI</h3>
+          <p class="text-gray-400 text-sm">Advanced traffic violation detection using YOLOv8 and OpenCV.</p>
+        </div>
+        <div class="glass p-8 rounded-3xl border border-white/5 hover:border-purple-500/50 transition duration-500">
+          <div class="text-purple-400 mb-4 font-bold text-xs uppercase">Web Architecture</div>
+          <h3 class="text-xl font-bold mb-2">Turf Booking</h3>
+          <p class="text-gray-400 text-sm">Django-based slot booking engine with Razorpay integration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="py-24 px-6 relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold mb-16 text-center">Experience</h2>
+      <div class="glass p-8 rounded-3xl border-l-4 border-blue-500">
+        <h3 class="text-2xl font-bold">Python Developer — TNQ Technologies</h3>
+        <p class="mt-4 text-gray-400 leading-relaxed">Architecting production-grade backend systems and AI automation tools.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="py-24 px-6 relative z-10">
+    <div class="max-w-4xl mx-auto glass p-10 rounded-[2rem]">
+      <h2 class="text-4xl font-bold mb-8 text-center">Let's <span class="text-gradient">Connect</span></h2>
+      <form class="space-y-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <input type="text" placeholder="Name" class="input-field">
+          <input type="email" placeholder="Email" class="input-field">
+        </div>
+        <textarea placeholder="Your Message" rows="4" class="input-field"></textarea>
+        <button type="button" class="w-full py-4 bg-blue-600 rounded-xl font-bold hover:bg-blue-500 transition">Send Message</button>
+      </form>
+    </div>
+  </section>
+
   <div id="chat-container" class="fixed bottom-6 right-6 z-[60] flex flex-col items-end">
     <div id="chat-window" class="hidden glass mb-4 w-[300px] md:w-[350px] h-[450px] rounded-2xl flex flex-col overflow-hidden shadow-2xl border border-blue-500/30">
       <div class="bg-blue-600/20 p-4 border-b border-white/10 flex justify-between items-center">
         <span class="font-bold text-xs text-blue-400">Virtual_Brain.AI</span>
         <button onclick="toggleChat()" class="text-gray-400">✕</button>
       </div>
-      
       <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-4 text-[13px] scrollbar-hide">
-        <div class="bg-white/5 p-3 rounded-lg border border-white/5">
-          Hi! I'm bharath's VB. How can I help you today?
-        </div>
+        <div class="bg-white/5 p-3 rounded-lg border border-white/5">Hi! I'm bharath's VB. How can I help you?</div>
       </div>
-
       <div class="px-4 pb-2 flex gap-2 overflow-x-auto scrollbar-hide">
         <button onclick="handleQuickAction('experience')" class="chip">Ask Experience</button>
         <button onclick="handleQuickAction('mail')" class="chip">📧 Mail Bharath</button>
-        <button onclick="handleQuickAction('projects')" class="chip">View Projects</button>
       </div>
-
       <div class="p-4 bg-white/5 border-t border-white/10 flex gap-2">
         <input type="text" id="chat-input" placeholder="Type a message..." class="bg-transparent border border-white/10 rounded-lg px-3 py-2 w-full text-xs focus:outline-none">
-        <button onclick="sendMessage()" class="bg-blue-600 p-2 rounded-lg hover:bg-blue-500">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-        </button>
+        <button onclick="sendMessage()" class="bg-blue-600 p-2 rounded-lg hover:bg-blue-500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
       </div>
     </div>
-
-    <button onclick="toggleChat()" id="chat-trigger" class="hover:scale-110 transition active:scale-95 flex items-center justify-center">
-      <div class="kimi-orb"><div class="orb-face"><div class="eye"></div><div class="eye"></div></div></div>
-    </button>
+    <button onclick="toggleChat()" id="chat-trigger" class="hover:scale-110 transition active:scale-95"><div class="kimi-orb"><div class="orb-face"><div class="eye"></div><div class="eye"></div></div></div></button>
   </div>
 
   <script>
-    // --- ARMOUR MESH SCRIPT --- (Same logic as before)
     const canvas = document.getElementById('mesh-canvas');
     const ctx = canvas.getContext('2d');
     let points = [];
-    const spacing = 60;
+    const spacing = 65;
     let mouse = { x: null, y: null };
-    window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+
+    // Important: Keep mouse tracking based on viewport
+    window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
     class Point {
       constructor(x, y) { this.baseX = x; this.baseY = y; this.x = x; this.y = y; this.vx = 0; this.vy = 0; }
@@ -115,8 +150,10 @@
     }
 
     function init() {
-      canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
       points = [];
+      // We only draw points for the visible screen because the canvas is "fixed"
       for (let y = -spacing; y < canvas.height + spacing; y += spacing) {
         let row = [];
         for (let x = -spacing; x < canvas.width + spacing; x += spacing) {
@@ -130,6 +167,7 @@
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.strokeStyle = 'rgba(96, 165, 250, 0.15)';
+      ctx.lineWidth = 1;
       for (let y = 0; y < points.length; y++) {
         for (let x = 0; x < points[y].length; x++) {
           let p = points[y][x]; p.update();
@@ -144,39 +182,17 @@
       requestAnimationFrame(draw);
     }
 
-    // --- CHAT LOGIC ---
     function toggleChat() { document.getElementById('chat-window').classList.toggle('hidden'); }
-
     function handleQuickAction(type) {
-      const container = document.getElementById('chat-messages');
-      if(type === 'mail') {
-        container.innerHTML += `<div class="text-right"><span class="bg-blue-600/20 border border-blue-500/30 px-3 py-2 rounded-lg inline-block">Mail to Bharath</span></div>`;
-        setTimeout(() => {
-          container.innerHTML += `<div class="text-left"><span class="bg-white/5 border border-white/10 px-3 py-2 rounded-lg inline-block">Opening your mail client... 📧</span></div>`;
-          // REPLACE WITH YOUR EMAIL
-          window.location.href = "mailto:bharathviswa06@gmail.com?subject=Inquiry from Portfolio"; 
-        }, 600);
-      } else if (type === 'experience') {
-        addMessage("Ask about experience", "Bharathraj has over 2 years of experience in Python development, specializing in AI-driven automation and full-stack web architectures.");
-      } else if (type === 'projects') {
-        addMessage("View Projects", "You can explore the 'Projects' section to see VisionGuard AI, Inventory OS, and more.");
-      }
+      if(type === 'mail') window.location.href = "mailto:bharathviswa06@gmail.com?subject=Inquiry";
+      else addMessage("Ask Experience", "Bharathraj has 2+ years of experience in Python and AI.");
     }
-
-    function addMessage(userText, aiText) {
-      const container = document.getElementById('chat-messages');
-      container.innerHTML += `<div class="text-right"><span class="bg-blue-600/20 border border-blue-500/30 px-3 py-2 rounded-lg inline-block">${userText}</span></div>`;
-      setTimeout(() => {
-        container.innerHTML += `<div class="text-left"><span class="bg-white/5 border border-white/10 px-3 py-2 rounded-lg inline-block">${aiText}</span></div>`;
-        container.scrollTop = container.scrollHeight;
-      }, 500);
+    function addMessage(u, a) {
+      const c = document.getElementById('chat-messages');
+      c.innerHTML += `<div class="text-right"><span class="bg-blue-600/20 px-3 py-2 rounded-lg inline-block">${u}</span></div>`;
+      setTimeout(() => { c.innerHTML += `<div class="text-left"><span class="bg-white/5 px-3 py-2 rounded-lg inline-block">${a}</span></div>`; c.scrollTop = c.scrollHeight; }, 500);
     }
-
-    function sendMessage() {
-      const input = document.getElementById('chat-input');
-      if (input.value.trim()) addMessage(input.value, "I'm still learning! Try using the quick action buttons for now.");
-      input.value = "";
-    }
+    function sendMessage() { const i = document.getElementById('chat-input'); if(i.value) addMessage(i.value, "Check the sections below for info!"); i.value=""; }
 
     window.addEventListener('resize', init);
     init(); draw();
