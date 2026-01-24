@@ -12,17 +12,15 @@
     .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
     .text-gradient { background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    /* ANIMATED BACKGROUND MESH */
-    .mesh-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; background: #050505; }
-    .mesh-ball { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.35; animation: float-around 20s infinite alternate ease-in-out; }
-    .ball-1 { width: 600px; height: 600px; background: #1e40af; top: -10%; left: -10%; animation-duration: 25s; }
-    .ball-2 { width: 500px; height: 500px; background: #7e22ce; bottom: -5%; right: -5%; animation-duration: 30s; animation-delay: -5s; }
-    .ball-3 { width: 400px; height: 400px; background: #2563eb; top: 40%; left: 30%; animation-duration: 22s; }
-
-    @keyframes float-around {
-      0% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(10vw, 20vh) scale(1.1); }
-      100% { transform: translate(-5vw, 5vh) scale(1); }
+    /* ARMOUR MESH CANVAS */
+    #mesh-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: #050505;
     }
 
     .input-field { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 12px 16px; width: 100%; outline: none; transition: all 0.3s; color: white; }
@@ -31,11 +29,7 @@
 </head>
 <body>
 
-  <div class="mesh-container">
-    <div class="mesh-ball ball-1"></div>
-    <div class="mesh-ball ball-2"></div>
-    <div class="mesh-ball ball-3"></div>
-  </div>
+  <canvas id="mesh-canvas"></canvas>
 
   <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 glass px-8 py-3 rounded-full flex gap-8 text-sm font-semibold shadow-2xl">
     <a href="#" class="hover:text-blue-400 transition">Home</a>
@@ -59,7 +53,7 @@
         <a href="https://github.com/bharathrajviswa/" target="_blank" class="p-3 glass rounded-xl hover:scale-110 transition group">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white group-hover:text-blue-400"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
         </a>
-        <a href="https://www.linkedin.com/in/bharath-k-v-909123238?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="p-3 glass rounded-xl hover:scale-110 transition group">
+        <a href="https://www.linkedin.com/in/bharath-k-v-909123238" target="_blank" class="p-3 glass rounded-xl hover:scale-110 transition group">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white group-hover:text-blue-600"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
         </a>
     </div>
@@ -74,7 +68,7 @@
           <div class="glass p-8 rounded-3xl group hover:border-blue-500/50 transition duration-500 flex flex-col h-full">
             <div class="text-blue-400 mb-4 font-bold tracking-widest text-xs uppercase">AI & Vision</div>
             <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition">VisionGuard AI</h3>
-            <p class="text-gray-400 text-sm mb-6 flex-grow">Advanced traffic violation detection system using YOLOv8 and OpenCV to identify helmets and license plates in real-time video streams.</p>
+            <p class="text-gray-400 text-sm mb-6 flex-grow">Advanced traffic violation detection using YOLOv8.</p>
             <div class="flex flex-wrap gap-2 mt-auto">
               <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-blue-300 border border-white/10">Python</span>
               <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-blue-300 border border-white/10">OpenCV</span>
@@ -84,7 +78,7 @@
           <div class="glass p-8 rounded-3xl group hover:border-purple-500/50 transition duration-500 flex flex-col h-full">
             <div class="text-purple-400 mb-4 font-bold tracking-widest text-xs uppercase">Web Architecture</div>
             <h3 class="text-xl font-bold mb-2 group-hover:text-purple-400 transition">Turf Booking Platform</h3>
-            <p class="text-gray-400 text-sm mb-6 flex-grow">A high-performance Django-based slot booking engine with Razorpay integration and a custom admin dashboard for data analytics.</p>
+            <p class="text-gray-400 text-sm mb-6 flex-grow">Django-based slot booking engine with Razorpay.</p>
             <div class="flex flex-wrap gap-2 mt-auto">
               <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-purple-300 border border-white/10">Django</span>
               <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-purple-300 border border-white/10">Razorpay</span>
@@ -94,40 +88,10 @@
           <div class="glass p-8 rounded-3xl group hover:border-green-500/50 transition duration-500 flex flex-col h-full">
             <div class="text-green-400 mb-4 font-bold tracking-widest text-xs uppercase">Full Stack</div>
             <h3 class="text-xl font-bold mb-2 group-hover:text-green-400 transition">Inventory OS</h3>
-            <p class="text-gray-400 text-sm mb-6 flex-grow">Enterprise-level MERN application with real-time stock tracking, barcode support, and automated reorder alerts.</p>
+            <p class="text-gray-400 text-sm mb-6 flex-grow">Enterprise MERN application with real-time tracking.</p>
             <div class="flex flex-wrap gap-2 mt-auto">
               <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-green-300 border border-white/10">React</span>
               <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-green-300 border border-white/10">Node.js</span>
-            </div>
-          </div>
-
-          <div class="glass p-8 rounded-3xl group hover:border-blue-500/50 transition duration-500 flex flex-col h-full">
-            <div class="text-blue-400 mb-4 font-bold tracking-widest text-xs uppercase">E-Commerce</div>
-            <h3 class="text-xl font-bold mb-2 group-hover:text-blue-400 transition">Plant Shop Engine</h3>
-            <p class="text-gray-400 text-sm mb-6 flex-grow">Modern plant shop with a custom recommendation system, secure checkout, and real-time order tracking notifications.</p>
-            <div class="flex flex-wrap gap-2 mt-auto">
-              <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-blue-300 border border-white/10">MERN</span>
-              <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-blue-300 border border-white/10">Redux</span>
-            </div>
-          </div>
-
-          <div class="glass p-8 rounded-3xl group hover:border-red-500/50 transition duration-500 flex flex-col h-full">
-            <div class="text-red-400 mb-4 font-bold tracking-widest text-xs uppercase">Automation</div>
-            <h3 class="text-xl font-bold mb-2 group-hover:text-red-400 transition">Auto-Doc Scraper</h3>
-            <p class="text-gray-400 text-sm mb-6 flex-grow">Python-based asynchronous scraper built to extract and categorize large-scale documentation from enterprise portals for AI training.</p>
-            <div class="flex flex-wrap gap-2 mt-auto">
-              <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-red-300 border border-white/10">BeautifulSoup</span>
-              <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-red-300 border border-white/10">Aiohttp</span>
-            </div>
-          </div>
-
-          <div class="glass p-8 rounded-3xl group hover:border-yellow-500/50 transition duration-500 flex flex-col h-full">
-            <div class="text-yellow-400 mb-4 font-bold tracking-widest text-xs uppercase">Natural Language</div>
-            <h3 class="text-xl font-bold mb-2 group-hover:text-yellow-400 transition">CodeRefactor AI</h3>
-            <p class="text-gray-400 text-sm mb-6 flex-grow">A CLI tool that utilizes OpenAI's API to analyze Python code and suggest PEP-8 compliant refactors and performance optimizations.</p>
-            <div class="flex flex-wrap gap-2 mt-auto">
-              <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-yellow-300 border border-white/10">Python</span>
-              <span class="px-3 py-1 bg-white/5 rounded-full text-[10px] text-yellow-300 border border-white/10">OpenAI API</span>
             </div>
           </div>
 
@@ -141,11 +105,7 @@
           <div class="space-y-10">
             <div class="glass p-8 rounded-3xl border-l-4 border-blue-500 hover:bg-white/5 transition duration-500">
               <h3 class="text-2xl font-bold">Python Developer — TNQ Technologies</h3>
-              <p class="mt-4 text-gray-400 leading-relaxed">Architecting production-grade backend systems and AI-assisted automation tools. Focused on performance optimization and scalable API design.</p>
-            </div>
-            <div class="glass p-8 rounded-3xl border-l-4 border-purple-500 hover:bg-white/5 transition duration-500">
-              <h3 class="text-2xl font-bold">AI Developer — Tutorea.ai</h3>
-              <p class="mt-4 text-gray-400 leading-relaxed">Lead the development of an AI-powered educational engine. Integrated LLMs to automate content generation and personalized learning paths.</p>
+              <p class="mt-4 text-gray-400 leading-relaxed">Architecting production-grade systems and automation tools.</p>
             </div>
           </div>
         </div>
@@ -170,5 +130,118 @@
     © 2026 Bharathraj KV • Python Developer
   </footer>
 
+  <script>
+    const canvas = document.getElementById('mesh-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let points = [];
+    const spacing = 60; // Size of the mesh gaps
+    const mouseRadius = 150;
+    const mouseStrength = 0.5;
+    
+    let mouse = { x: null, y: null };
+
+    window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+
+    class Point {
+      constructor(x, y) {
+        this.baseX = x;
+        this.baseY = y;
+        this.x = x;
+        this.y = y;
+        this.vx = 0;
+        this.vy = 0;
+      }
+
+      update() {
+        if (mouse.x) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let dist = Math.sqrt(dx*dx + dy*dy);
+          
+          if (dist < mouseRadius) {
+            let force = (mouseRadius - dist) / mouseRadius;
+            this.vx -= dx * force * mouseStrength;
+            this.vy -= dy * force * mouseStrength;
+          }
+        }
+
+        // Return to base position (Elastic effect)
+        this.vx += (this.baseX - this.x) * 0.05;
+        this.vy += (this.baseY - this.y) * 0.05;
+
+        // Friction
+        this.vx *= 0.85;
+        this.vy *= 0.85;
+
+        this.x += this.vx;
+        this.y += this.vy;
+      }
+    }
+
+    function init() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      points = [];
+
+      for (let y = -spacing; y < canvas.height + spacing; y += spacing) {
+        let row = [];
+        for (let x = -spacing; x < canvas.width + spacing; x += spacing) {
+          // Offset every second row for a triangular "Armour" look
+          let xOffset = (Math.floor(y / spacing) % 2 === 0) ? spacing / 2 : 0;
+          row.push(new Point(x + xOffset, y));
+        }
+        points.push(row);
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.strokeStyle = 'rgba(96, 165, 250, 0.15)'; // Mesh line color
+      ctx.lineWidth = 1;
+
+      for (let y = 0; y < points.length; y++) {
+        for (let x = 0; x < points[y].length; x++) {
+          let p = points[y][x];
+          p.update();
+
+          // Connect to right neighbor
+          if (x < points[y].length - 1) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(points[y][x+1].x, points[y][x+1].y);
+            ctx.stroke();
+          }
+
+          // Connect to bottom neighbors (forming the triangle/armour pattern)
+          if (y < points.length - 1) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(points[y+1][x].x, points[y+1][x].y);
+            ctx.stroke();
+            
+            // Cross connection for the mesh look
+            if (x > 0 && (Math.floor(y / spacing) % 2 === 0)) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(points[y+1][x-1].x, points[y+1][x-1].y);
+                ctx.stroke();
+            } else if (x < points[y].length - 1) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(points[y+1][x+1].x, points[y+1][x+1].y);
+                ctx.stroke();
+            }
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', init);
+    init();
+    draw();
+  </script>
 </body>
 </html>
